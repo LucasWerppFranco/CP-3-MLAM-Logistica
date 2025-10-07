@@ -71,10 +71,10 @@ def prever_demanda(df):
     print(f"\nRecomendação de Logística: Peça {total_recomendado:.0f} unidades no total para os próximos 3 meses.")
     print("Isso otimiza o estoque, evitando faltas (stockout) e excessos.")
     
-    return previsoes, previsoes_otimizadas
+    return previsoes, previsoes_otimizadas, slope, intercept
 
 # Função para visualização
-def plotar_graficos(df, previsoes):
+def plotar_graficos(df, previsoes, slope, intercept):
     plt.figure(figsize=(12, 8))
     
     # Gráfico 1: Vendas históricas e média móvel
@@ -122,10 +122,10 @@ def main():
     df = media_movel(df)
     
     # Previsão
-    previsoes_base, previsoes_otim = prever_demanda(df)
+    previsoes_base, previsoes_otim, slope, intercept = prever_demanda(df)
     
     # Visualização
-    plotar_graficos(df, previsoes_base)
+    plotar_graficos(df, previsoes_base, slope, intercept)
     
     # Salvar relatório em CSV para o gerente
     df.to_csv('relatorio_estoque.csv')
